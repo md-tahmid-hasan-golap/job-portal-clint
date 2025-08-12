@@ -18,23 +18,27 @@ const FirebaseAuthProvider = ({ children }) => {
   const [loding, setLoding] = useState(true);
   //creat user
   const creatUser = (email, password) => {
+    setLoding(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
   //signUp user
   const signUpUser = (email, password) => {
+    setLoding(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
   //signInWithGoggleUser
   const signInWithGoggleUser = () => {
+    setLoding(true);
     return signInWithPopup(auth, googleAuthProvider);
   };
   //onAuth change
   useEffect(() => {
     const unsusCribe = onAuthStateChanged(auth, (crueentUser) => {
       setUser(crueentUser);
-      console.log(crueentUser);
+      setLoding(false);
+      //   console.log(crueentUser);
     });
     return () => {
       unsusCribe();
@@ -50,6 +54,8 @@ const FirebaseAuthProvider = ({ children }) => {
   const userData = {
     user,
     setUser,
+    loding,
+    setLoding,
     creatUser,
     signUpUser,
     signInWithGoggleUser,
