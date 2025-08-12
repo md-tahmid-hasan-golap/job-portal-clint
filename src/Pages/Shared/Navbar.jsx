@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import { AuthContext } from "../../firebase/FirebaseAuthProvider";
 import Swal from "sweetalert2";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const { user, logOut } = useContext(AuthContext);
   const handleLogout = () => {
     logOut()
@@ -14,6 +15,7 @@ const Navbar = () => {
           draggable: true,
           timer: 1500,
         });
+        navigate("/");
       })
       .catch((error) => {
         console.log(error);
@@ -70,9 +72,22 @@ const Navbar = () => {
       </div>
       <div className="navbar-end flex gap-5 items-center mr-5">
         {user ? (
-          <button className="btn" onClick={handleLogout}>
-            LogOut
-          </button>
+          <div className="flex items-center gap-3">
+            {user.photoURL && (
+              <img
+                src={user.photoURL}
+                alt="User Profile"
+                className="w-10 h-10 rounded-full"
+                title={user.displayName || "User"}
+              />
+            )}
+            <span className="hidden sm:inline-block font-semibold">
+              {user.displayName || "User"}
+            </span>
+            <button className="btn btn-warning" onClick={handleLogout}>
+              LogOut
+            </button>
+          </div>
         ) : (
           <>
             <Link to="/register" className="btn">

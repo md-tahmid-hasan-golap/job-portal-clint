@@ -1,12 +1,23 @@
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Login from "../assets/Lottes/Login.json";
 import Lottie from "lottie-react";
 import { useContext } from "react";
 import { AuthContext } from "../firebase/FirebaseAuthProvider";
 
 const SignIn = () => {
-  const { signUpUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { signUpUser, signInWithGoggleUser } = useContext(AuthContext);
+  const handleGoogle = () => {
+    signInWithGoggleUser()
+      .then((result) => {
+        console.log(result);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const handleSignIn = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -16,7 +27,9 @@ const SignIn = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        navigate("/");
       })
+
       .catch((error) => {
         console.log(error);
       });
@@ -56,7 +69,7 @@ const SignIn = () => {
               <button className="btn btn-neutral mt-4">Login</button>
             </form>
 
-            <button className="btn btn-outline">
+            <button onClick={handleGoogle} className="btn btn-outline">
               <FcGoogle size={25} />
               Sign In With Google
             </button>

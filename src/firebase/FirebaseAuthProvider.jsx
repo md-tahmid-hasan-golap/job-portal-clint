@@ -2,16 +2,20 @@ import React, { createContext, useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
   getAuth,
+  GoogleAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
 } from "firebase/auth";
 import app from "./firebase.init";
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
+const googleAuthProvider = new GoogleAuthProvider();
 const FirebaseAuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loding, setLoding] = useState(true);
   //creat user
   const creatUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -23,7 +27,9 @@ const FirebaseAuthProvider = ({ children }) => {
   };
 
   //signInWithGoggleUser
-  const signInWithGoggleUser = () => {};
+  const signInWithGoggleUser = () => {
+    return signInWithPopup(auth, googleAuthProvider);
+  };
   //onAuth change
   useEffect(() => {
     const unsusCribe = onAuthStateChanged(auth, (crueentUser) => {
