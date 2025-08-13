@@ -23,7 +23,10 @@ const ApplyNow = () => {
     };
 
     axios
-      .post("http://localhost:3000/application", application)
+      .post(
+        "https://job-portal-server-khaki-phi.vercel.app/application",
+        application
+      )
       .then((res) => {
         if (res.data.insertedId) {
           Swal.fire({

@@ -20,7 +20,9 @@ const router = createBrowserRouter([
       {
         path: "/jobsDetails/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/jobsDetails/${params.id}`),
+          fetch(
+            `https://job-portal-server-khaki-phi.vercel.app/jobsDetails/${params.id}`
+          ),
         element: (
           <PrivateRouter>
             <JobDetails></JobDetails>
