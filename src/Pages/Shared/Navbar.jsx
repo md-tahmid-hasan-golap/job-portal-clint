@@ -23,18 +23,37 @@ const Navbar = () => {
   };
   const links = (
     <>
-      <li>
-        <NavLink
-          className={({ isActive }) =>
-            isActive
-              ? "bg-blue-600 text-white font-bold px-4 py-2 rounded"
-              : "text-gray-600 hover:text-blue-600 px-4 py-2"
-          }
-          to="/"
-        >
-          Home
-        </NavLink>
-      </li>
+      <ul className="flex items-center gap-4">
+        {" "}
+        <li>
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? "bg-blue-600 text-white font-bold px-4 py-2 rounded"
+                : "text-gray-600 hover:text-blue-600 px-4 py-2"
+            }
+            to="/"
+          >
+            Home
+          </NavLink>
+        </li>
+        {user && (
+          <>
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive
+                    ? "bg-blue-600 text-white font-bold px-4 py-2 rounded"
+                    : "text-gray-600 hover:text-blue-600 px-4 py-2"
+                }
+                to="/myApplication"
+              >
+                My Application
+              </NavLink>
+            </li>
+          </>
+        )}
+      </ul>
     </>
   );
   return (
